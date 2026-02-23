@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Stackly – Signup | Corporate Product</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* ===== RESET / GLOBAL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f5f5;
+            color: #1e1e1e;
+            overflow-x: hidden;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header placeholder - reduced min-height to minimize gap */
+        #header-placeholder {
+            width: 100%;
+            overflow-x: hidden;
+            min-height: 70px;
+            line-height: 0;
+        }
+
+        /* Footer placeholder */
+        #footer-placeholder {
+            width: 100%;
+            overflow-x: hidden;
+            margin-top: auto;
+        }
+
+        /* ===== SIGNUP SECTION ===== */
+        .signup-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at top, #feca57, #b86f0e);
+            padding: 20px 20px;
+            min-height: calc(100vh - 70px);
+            overflow: hidden;
+            width: 100%;
+            margin-top: 0;
+        }
+
+        /* ===== SHAPES ===== */
+        .shape {
+            position: absolute;
+            opacity: .25;
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        .shape.one {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: #fdb44b;
+            top: 10%;
+            left: 20%;
+        }
+        .shape.two {
+            width: 120px;
+            height: 60px;
+            border-radius: 40px;
+            background: #fdcd6d;
+            top: 40%;
+            left: 10%;
+        }
+        .shape.three {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 18px solid #fece8c;
+            bottom: 15%;
+            right: 20%;
+        }
+        @keyframes float {
+            50% { transform: translateY(-20px); }
+        }
+
+        /* ===== SIGNUP CARD ===== */
+        .signup-card {
+            width: 420px;
+            max-width: 100%;
+            padding: 25px 30px;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            color: #fff;
+            z-index: 2;
+            position: relative;
+            border: 1px solid rgba(254, 202, 87, 0.3);
+            margin: 0 auto;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .logo img {
+            height: 38px;
+            cursor: pointer;
+            filter: brightness(0) invert(1);
+        }
+
+        .signup-card h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            line-height: 1.2;
+            color: #feca57;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* two column layout */
+        .row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .row .field {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .field {
+            margin-bottom: 12px;
+        }
+        .field label {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 4px;
+            display: block;
+            color: #ffe6b3;
+        }
+        .field input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            background: white;
+            color: #1a1a2e;
+            border: 1px solid transparent;
+            transition: border 0.2s;
+        }
+        .field input:focus {
+            border: 1px solid #feca57;
+            box-shadow: 0 0 0 3px rgba(254, 202, 87, 0.3);
+        }
+
+        /* phone icon wrapper */
+        .phone-wrapper {
+            position: relative;
+        }
+        .phone-wrapper input {
+            padding-left: 36px;
+        }
+        .phone-wrapper i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 14px;
+            pointer-events: none;
+        }
+
+        /* hint style (for DOB hint) */
+        .hint {
+            font-size: 11px;
+            color: #ffd966;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .error {
+            font-size: 11px;
+            color: #ffb3b3;
+            margin-top: 4px;
+            display: none;
+            line-height: 1.3;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #feca57;
+            color: #1e1e1e;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 8px 16px rgba(254, 202, 87, 0.3);
+            margin-top: 8px;
+        }
+        .btn:hover {
+            background: #ffdb6b;
+            transform: translateY(-2px);
+        }
+
+        .or {
+            text-align: center;
+            font-size: 12px;
+            opacity: 0.7;
+            margin: 14px 0 12px;
+            color: #ffe6b3;
+        }
+
+        .social {
+            display: flex;
+            gap: 10px;
+        }
+        .social button {
+            flex: 1;
+            padding: 8px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            background: rgba(255,255,255,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .social button:hover {
+            transform: translateY(-3px);
+            background: #feca57;
+        }
+        .social img {
+            height: 18px;
+        }
+
+        .footer-text {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 14px;
+            color: #ffe6b3;
+        }
+        .footer-text a {
+            color: #feca57;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .signup-section {
+                padding: 15px;
+            }
+            .row {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .signup-card {
+                width: 95%;
+                padding: 20px 15px;
+            }
+            .signup-card h2 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Fixed header adjustment */
+        .has-fixed-header {
+            padding-top: 70px;
+        }
+        .has-fixed-header .signup-section {
+            padding-top: 10px;
+        }
+
+        #header-placeholder:empty {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- SIGNUP SECTION -->
+    <section class="signup-section">
+        <div class="shape one"></div>
+        <div class="shape two"></div>
+        <div class="shape three"></div>
+
+        <div class="signup-card">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="stacklylogo.webp" alt="Stackly" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'45\' height=\'45\' viewBox=\'0 0 45 45\'%3E%3Crect width=\'45\' height=\'45\' fill=\'%23feca57\'/%3E%3Ctext x=\'8\' y=\'30\' fill=\'white\' font-size=\'20\' font-weight=\'bold\'%3ES%3C/text%3E%3C/svg%3E';">
+                </a>
+            </div>
+
+            <h2>SIGN UP <br>CORPORATE PRODUCT</h2>
+
+            <form id="signupForm" novalidate>
+                <!-- row: Full Name & Email -->
+                <div class="row">
+                    <div class="field">
+                        <label>Full Name</label>
+                        <input type="text" id="fullName" placeholder="e.g. John Doe" required>
+                        <div class="error" id="nameError">Only letters and spaces allowed</div>
+                    </div>
+                    <div class="field">
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="name@example.com" required>
+                        <div class="error" id="emailError">Enter a valid email address</div>
+                    </div>
+                </div>
+
+                <!-- row: Date of Birth & Phone (UPDATED: dd--mm--yyyy) -->
+                <div class="row">
+                    <div class="field">
+                        <label>Date of Birth</label>
+                        <input type="text" id="dob" placeholder="dd--mm--yyyy" required>
+                        <div class="hint">Use format dd--mm--yyyy (e.g., 15--03--1990)</div>
+                        <div class="error" id="dobError">Use format dd--mm--yyyy (e.g., 15--03--1990)</div>
+                    </div>
+                    <div class="field">
+                        <label>Phone Number</label>
+                        <div class="phone-wrapper">
+                            <i class="fas fa-phone-alt"></i>
+                            <input type="text" id="phone" placeholder="10 digit mobile" required maxlength="10">
+                        </div>
+                        <div class="error" id="phoneError">Enter exactly 10 digits</div>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="field">
+                    <label>Password</label>
+                    <input type="password" id="password" required>
+                    <div class="hint">Min 8 chars, 1 uppercase, 1 number, 1 special (@$!%*?&)</div>
+                    <div class="error" id="passwordError">Min 8 chars, 1 uppercase, 1 number, 1 special (@$!%*?&)</div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="field">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                    <div class="error" id="confirmError">Passwords do not match</div>
+                </div>
+
+                <button class="btn" type="submit">Confirm</button>
+            </form>
+
+            <div class="or">or continue with</div>
+
+            <div class="social">
+                <button onclick="go404()">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google">
+                </button>
+                <button onclick="go404()">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+                </button>
+                <button onclick="go404()">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" alt="Facebook">
+                </button>
+            </div>
+
+            <div class="footer-text">
+                Already have an account? <a href="login.html">Login</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER PLACEHOLDER -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // --- SIGNUP FORM VALIDATION with real-time "alert" under fields ---
+        const form = document.getElementById('signupForm');
+
+        // Input fields
+        const fullName = document.getElementById('fullName');
+        const email = document.getElementById('email');
+        const dob = document.getElementById('dob');
+        const phone = document.getElementById('phone');
+        const password = document.getElementById('password');
+        const confirm = document.getElementById('confirmPassword');
+
+        // Error spans
+        const nameError = document.getElementById('nameError');
+        const emailError = document.getElementById('emailError');
+        const dobError = document.getElementById('dobError');
+        const phoneError = document.getElementById('phoneError');
+        const passwordError = document.getElementById('passwordError');
+        const confirmError = document.getElementById('confirmError');
+
+        // Helper to hide all errors initially
+        function hideAllErrors() {
+            [nameError, emailError, dobError, phoneError, passwordError, confirmError].forEach(el => el.style.display = 'none');
+        }
+
+        // --- Real-time validation (shows error immediately as user types) ---
+        
+        // Full Name: only letters and spaces
+        fullName.addEventListener('input', function() {
+            const regex = /^[A-Za-z\s]+$/;
+            if (!regex.test(this.value.trim()) && this.value.trim() !== '') {
+                nameError.style.display = 'block';
+            } else {
+                nameError.style.display = 'none';
+            }
+            // Restrict invalid chars
+            this.value = this.value.replace(/[^A-Za-z\s]/g, '');
+        });
+
+        // Email: basic format
+        email.addEventListener('input', function() {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!regex.test(this.value.trim()) && this.value.trim() !== '') {
+                emailError.style.display = 'block';
+            } else {
+                emailError.style.display = 'none';
+            }
+        });
+
+        // DOB: dd--mm--yyyy (two digits, two dashes, two digits, two dashes, four digits)
+        dob.addEventListener('input', function() {
+            // Format: dd--mm--yyyy  (e.g., 15--03--1990)
+            const regex = /^(0[1-9]|[12][0-9]|3[01])--(0[1-9]|1[0-2])--(19|20)\d{2}$/;
+            if (!regex.test(this.value.trim()) && this.value.trim() !== '') {
+                dobError.style.display = 'block';
+            } else {
+                dobError.style.display = 'none';
+            }
+        });
+
+        // Phone: exactly 10 digits
+        phone.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+            const regex = /^\d{10}$/;
+            if (!regex.test(this.value.trim()) && this.value.trim() !== '') {
+                phoneError.style.display = 'block';
+            } else {
+                phoneError.style.display = 'none';
+            }
+        });
+
+        // Password: min 8, 1 uppercase, 1 number, 1 special
+        password.addEventListener('input', function() {
+            const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (!regex.test(this.value) && this.value !== '') {
+                passwordError.style.display = 'block';
+            } else {
+                passwordError.style.display = 'none';
+            }
+        });
+
+        // Confirm: match password
+        confirm.addEventListener('input', function() {
+            if (this.value !== password.value && this.value !== '') {
+                confirmError.style.display = 'block';
+            } else {
+                confirmError.style.display = 'none';
+            }
+        });
+
+        // Validation functions for submit
+        function validateName() {
+            const regex = /^[A-Za-z\s]+$/;
+            if (!regex.test(fullName.value.trim())) {
+                nameError.style.display = 'block';
+                return false;
+            }
+            nameError.style.display = 'none';
+            return true;
+        }
+
+        function validateEmail() {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!regex.test(email.value.trim())) {
+                emailError.style.display = 'block';
+                return false;
+            }
+            emailError.style.display = 'none';
+            return true;
+        }
+
+        function validateDob() {
+            // dd--mm--yyyy
+            const regex = /^(0[1-9]|[12][0-9]|3[01])--(0[1-9]|1[0-2])--(19|20)\d{2}$/;
+            if (!regex.test(dob.value.trim())) {
+                dobError.style.display = 'block';
+                return false;
+            }
+            dobError.style.display = 'none';
+            return true;
+        }
+
+        function validatePhone() {
+            const regex = /^\d{10}$/;
+            if (!regex.test(phone.value.trim())) {
+                phoneError.style.display = 'block';
+                return false;
+            }
+            phoneError.style.display = 'none';
+            return true;
+        }
+
+        function validatePassword() {
+            const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (!regex.test(password.value)) {
+                passwordError.style.display = 'block';
+                return false;
+            }
+            passwordError.style.display = 'none';
+            return true;
+        }
+
+        function validateConfirm() {
+            if (password.value !== confirm.value) {
+                confirmError.style.display = 'block';
+                return false;
+            }
+            confirmError.style.display = 'none';
+            return true;
+        }
+
+        // Form submit handler
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Trigger all validations (errors will show if any)
+            const isNameValid = validateName();
+            const isEmailValid = validateEmail();
+            const isDobValid = validateDob();
+            const isPhoneValid = validatePhone();
+            const isPasswordValid = validatePassword();
+            const isConfirmValid = validateConfirm();
+
+            if (isNameValid && isEmailValid && isDobValid && isPhoneValid && isPasswordValid && isConfirmValid) {
+                window.location.href = '404.html';
+            }
+        });
+
+        // Social / redirect helper
+        function go404() {
+            window.location.href = '404.html';
+        }
+
+        // --- HEADER & FOOTER LOADER (unchanged) ---
+        function refreshAOS() { if (AOS) AOS.refresh(); }
+        AOS.init({ once: false, mirror: true, duration: 900, offset: 20 });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('header.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Header file not found');
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                    setTimeout(() => {
+                        initHeaderInteractions();
+                        refreshAOS();
+                        const header = document.querySelector('.header');
+                        if (header && window.getComputedStyle(header).position === 'fixed') {
+                            document.body.classList.add('has-fixed-header');
+                        }
+                    }, 100);
+                })
+                .catch(error => {
+                    console.warn('Header could not be loaded:', error);
+                    document.getElementById('header-placeholder').innerHTML = 
+                        '<header style="background: #feca57; color: #1e1e1e; padding: 15px; text-align: center;">Header</header>';
+                });
+
+            fetch('footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Footer file not found');
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                    refreshAOS();
+                })
+                .catch(error => {
+                    console.warn('Footer could not be loaded:', error);
+                    document.getElementById('footer-placeholder').innerHTML = 
+                        '<footer style="background: #1a1a2e; color: white; padding: 20px; text-align: center;">Footer</footer>';
+                });
+        });
+
+        function initHeaderInteractions() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            const dropdownBtn = document.getElementById('homeDropdownBtn');
+            const homeDropdown = document.getElementById('homeDropdown');
+
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+                });
+            }
+
+            if (dropdownBtn && homeDropdown) {
+                dropdownBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    homeDropdown.classList.toggle('show');
+                    this.classList.toggle('active');
+                });
+            }
+
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768 && menuToggle && navMenu) {
+                        menuToggle.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                        if (homeDropdown) homeDropdown.classList.remove('show');
+                        if (dropdownBtn) dropdownBtn.classList.remove('active');
+                    }
+                });
+            });
+
+            document.addEventListener('click', function(e) {
+                if (dropdownBtn && homeDropdown && !dropdownBtn.contains(e.target) && !homeDropdown.contains(e.target)) {
+                    homeDropdown.classList.remove('show');
+                    dropdownBtn.classList.remove('active');
+                }
+            });
+
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768 && navMenu && menuToggle) {
+                    menuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    if (homeDropdown) homeDropdown.classList.remove('show');
+                    if (dropdownBtn) dropdownBtn.classList.remove('active');
+                }
+                refreshAOS();
+            });
+        }
+
+        window.addEventListener('load', function() {
+            if (document.getElementById('menuToggle')) initHeaderInteractions();
+            refreshAOS();
+        });
+    </script>
+
+    <!-- Extra style for fixed header -->
+    <style>
+        #header-placeholder { position: relative; z-index: 1000; }
+        .header { position: fixed !important; top: 0; left: 0; width: 100%; z-index: 1000; }
+        .has-fixed-header .signup-section { padding-top: 10px; }
+        #footer-placeholder { margin-top: auto; }
+    </style>
+</body>
+</html>

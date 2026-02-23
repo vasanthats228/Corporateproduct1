@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Stackly - Footer Component</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* Footer Styles - Matching dark header and hero section */
+        .footer {
+            background: #0a0c14; /* Dark background matching header */
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            padding: 40px 0 20px;
+            font-family: 'Inter', sans-serif;
+            width: 100%;
+            overflow-x: hidden;
+            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            width: 100%;
+        }
+
+        /* Footer Main Content */
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* Company Info Column */
+        .company-info {
+            max-width: 350px;
+        }
+
+        .footer-logo {
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .footer-logo img {
+            height: 45px;
+            width: auto;
+            display: block;
+            filter: brightness(0) invert(1); /* Makes logo white for dark bg */
+        }
+
+        .company-info p {
+            color: rgba(255, 255, 255, 0.7); /* Light text for dark bg */
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 38px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .social-link:hover {
+            background: #feca57; /* Accent yellow from hero */
+            color: #0a0c14;
+            transform: translateY(-3px);
+            border-color: transparent;
+        }
+
+        .social-link i {
+            font-size: 16px;
+        }
+
+        /* Footer Headings - No Underline */
+        .footer h3 {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Quick Links */
+        .quick-links ul {
+            list-style: none;
+        }
+
+        .quick-links li {
+            margin-bottom: 10px;
+        }
+
+        .quick-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quick-links a:hover {
+            color: #feca57; /* Accent yellow */
+            transform: translateX(5px);
+        }
+
+        .quick-links a i {
+            font-size: 12px;
+            color: #feca57; /* Accent yellow */
+        }
+
+        /* Contact Information */
+        .contact-info .contact-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .contact-info .contact-item i {
+            color: #feca57; /* Accent yellow */
+            font-size: 16px;
+            margin-top: 3px;
+            min-width: 18px;
+        }
+
+        .contact-info .contact-item p,
+        .contact-info .contact-item a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.5;
+            text-decoration: none;
+        }
+
+        .contact-info .contact-item a:hover {
+            color: #feca57;
+        }
+
+        /* Newsletter */
+        .newsletter p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .newsletter-input {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent */
+            border-radius: 6px;
+            padding: 4px 4px 4px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .newsletter-input i {
+            color: #feca57; /* Accent yellow */
+            font-size: 14px;
+        }
+
+        .newsletter-input input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 10px 8px;
+            color: white;
+            font-size: 13px;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .newsletter-input input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .newsletter-input button {
+            background: #feca57; /* Accent yellow */
+            border: none;
+            color: #0a0c14; /* Dark text */
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .newsletter-input button:hover {
+            background: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(254, 202, 87, 0.3);
+        }
+
+        /* Corporate Product Badge */
+        .corporate-badge {
+            background: rgba(254, 202, 87, 0.1); /* Yellow tint */
+            border: 1px solid rgba(254, 202, 87, 0.3);
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+
+        .corporate-badge p {
+            margin-bottom: 3px;
+            font-weight: 500;
+            color: white;
+            font-size: 13px;
+        }
+
+        .corporate-badge span {
+            color: #feca57; /* Accent yellow */
+            font-weight: 600;
+        }
+
+        .corporate-badge small {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 11px;
+            display: block;
+            margin-top: 3px;
+        }
+
+        /* Footer Bottom */
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-bottom-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: #feca57; /* Accent yellow */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .company-info {
+                grid-column: span 2;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                padding: 30px 0 15px;
+            }
+
+            .footer-container {
+                padding: 0 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .company-info {
+                grid-column: span 1;
+            }
+
+            .footer h3 {
+                margin-bottom: 15px;
+            }
+
+            .footer-bottom-links {
+                flex-direction: column;
+                gap: 12px;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-container {
+                padding: 0 15px;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .newsletter-input {
+                flex-direction: column;
+                background: transparent;
+                padding: 0;
+                gap: 8px;
+            }
+
+            .newsletter-input input {
+                width: 100%;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 6px;
+                padding: 10px 12px;
+            }
+
+            .newsletter-input button {
+                width: 100%;
+            }
+        }
+
+        .fas, .fab {
+            font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands';
+            font-weight: 900;
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <!-- Footer - Matching dark header and hero section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Footer Main Content -->
+            <div class="footer-content">
+                <!-- Company Info with Logo and Social Links -->
+                <div class="company-info">
+                    <a href="index.html" class="footer-logo">
+                        <img src="Stacklylogo.webp" alt="Stackly Logo" 
+                             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'45\' height=\'45\' viewBox=\'0 0 45 45\'%3E%3Crect width=\'45\' height=\'45\' fill=\'%23667eea\'/%3E%3Ctext x=\'8\' y=\'30\' fill=\'white\' font-size=\'20\' font-weight=\'bold\'%3ES%3C/text%3E%3C/svg%3E';">
+                    </a>
+                    <p>Stackly delivers innovative corporate outsourcing solutions that transform businesses through cutting-edge technology and expert services.</p>
+                    
+                    <!-- Social Links - all redirect to 404.html -->
+                    <div class="social-links">
+                        <a href="404.html" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="404.html" class="social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="404.html" class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="404.html" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="404.html" class="social-link" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links - Same nav links -->
+                <div class="quick-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="dashboard.html"><i class="fas fa-chevron-right"></i> Dashboard</a></li>
+                        <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                        <li><a href="industries.html"><i class="fas fa-chevron-right"></i> Industries</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="login.html"><i class="fas fa-chevron-right"></i> Login</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="contact-info">
+                    <h3>Contact Us</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p> Koppa Rd, in front of SNN Raj Serenity,
+Suraksha Nagar, Yelenahalli, Begur,<br>Bengaluru, Karnataka - 560068</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <p><a href="tel:+1234567890">+91 70107 92745</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <p><a href="mailto:info@stackly.com">info@thestackly.com</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <p>Mon - Fri: 9:30 AM - 6:30 PM<br>Sat - Sun: Closed</p>
+                    </div>
+                </div>
+
+                <!-- Newsletter with Corporate Product -->
+                <div class="newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get updates on our latest products and corporate solutions.</p>
+                    <form class="newsletter-form" id="newsletterForm" action="404.html" method="GET">
+                        <div class="newsletter-input">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" placeholder="Your email address" required>
+                            <button type="submit">Subscribe</button>
+                        </div>
+                    </form>
+
+                    <!-- Corporate Product Badge -->
+                    <div class="corporate-badge">
+                        <p><span>Stackly Corporate Suite</span> - Enterprise-grade outsourcing solutions for modern businesses</p>
+                        <small>Trusted by 500+ companies worldwide</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>© 2026 Stackly Corporate Product. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="404.html">Privacy Policy</a>
+                    <a href="404.html">Terms of Service</a>
+                    <a href="404.html">Cookie Policy</a>
+                    <a href="404.html">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Logo fallback
+        document.querySelector('.footer-logo img').addEventListener('error', function() {
+            this.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Stackly - Industries We Serve | Corporate Products</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Library for scroll animations (up & down) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e1e1e;
+            line-height: 1.5;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+            position: relative;
+            background: #fafbff;
+        }
+
+        html {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        :root {
+            --primary: #6c5ce7;
+            --primary-light: #8b7cf0;
+            --primary-dark: #5649c0;
+            --secondary: #00d2d3;
+            --accent: #feca57;
+            --light-bg: #f8f9ff;
+            --dark-text: #2d2d2d;
+            --gray-text: #5a5a5a;
+            --border-light: #eaeef5;
+            --white: #ffffff;
+            --black: #1a1a2e;
+        }
+
+        /* Container - FIXED for mobile */
+        .container {
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+            overflow-x: hidden;
+        }
+
+        /* Section Padding */
+        .section-padding {
+            padding: 100px 0;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 70px 0;
+            }
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .section-header .pre-title {
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-text);
+            line-height: 1.2;
+            word-wrap: break-word;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--gray-text);
+            max-width: 700px;
+            margin: 0 auto;
+            word-wrap: break-word;
+        }
+
+        @media (max-width: 768px) {
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            .section-header p {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+        }
+
+        /* Buttons */
+        .btn-primary {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.3);
+            max-width: 100%;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            background: transparent;
+            color: var(--primary);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--primary);
+            transition: all 0.3s ease;
+            max-width: 100%;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Header placeholder */
+        #header-placeholder {
+            min-height: 80px;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* ========== HERO SECTION ========== */
+        .industries-hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 120px 0 80px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .industries-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(108,92,231,0.2) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .industries-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .industries-hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            word-wrap: break-word;
+        }
+
+        .industries-hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            padding: 0 20px;
+            word-wrap: break-word;
+        }
+
+        @media (max-width: 768px) {
+            .industries-hero h1 {
+                font-size: 2.5rem;
+            }
+            .industries-hero p {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* ========== INDUSTRY CARD GRID ========== */
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 100%;
+        }
+
+        .industry-card {
+            background: var(--white);
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.03);
+            border: 2px solid var(--border-light);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .industry-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 30px 60px rgba(108,92,231,0.15);
+        }
+
+        .card-image {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary-light);
+            transition: all 0.5s ease;
+            max-width: 100%;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .industry-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark-text);
+            transition: color 0.3s;
+            word-wrap: break-word;
+        }
+
+        .industry-card p {
+            color: var(--gray-text);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            word-wrap: break-word;
+        }
+
+        .card-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card-link:hover {
+            gap: 15px;
+            color: var(--secondary);
+        }
+
+        /* ========== TWO COLUMN LAYOUT ========== */
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .col-image {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .col-image img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(108,92,231,0.2);
+            transition: transform 0.5s;
+        }
+
+        .col-image img:hover {
+            transform: scale(1.02) rotate(1deg);
+        }
+
+        .col-content {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .col-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-text);
+            word-wrap: break-word;
+        }
+
+        .col-content p {
+            font-size: 1.1rem;
+            color: var(--gray-text);
+            margin-bottom: 25px;
+            line-height: 1.8;
+            word-wrap: break-word;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            flex-wrap: wrap;
+            word-wrap: break-word;
+        }
+
+        .feature-list li i {
+            color: var(--primary);
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        /* ========== STATS SECTION ========== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 30px;
+            border: 2px solid var(--border-light);
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--gray-text);
+            word-wrap: break-word;
+        }
+
+        /* ========== TESTIMONIAL CARD ========== */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            width: 100%;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            border: 2px solid var(--border-light);
+            transition: all 0.4s;
+            width: 100%;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+        }
+
+        .testimonial-card i {
+            font-size: 3rem;
+            color: var(--primary);
+            opacity: 0.2;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card p {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 25px;
+            word-wrap: break-word;
+        }
+
+        .testimonial-author h5 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            word-wrap: break-word;
+        }
+
+        .testimonial-author span {
+            color: var(--primary);
+            word-wrap: break-word;
+        }
+
+        /* ========== CTA SECTION ========== */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+            color: white;
+            text-align: center;
+            border-radius: 50px;
+            padding: 80px 40px;
+            width: 100%;
+        }
+
+        .cta-section h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            word-wrap: break-word;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            word-wrap: break-word;
+        }
+
+        .cta-section .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+        }
+
+        /* ========== RESPONSIVE - FIXED FOR MOBILE ========== */
+        @media (max-width: 1100px) {
+            .industry-grid,
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .two-col-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .industry-grid,
+            .stats-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .two-col-grid {
+                gap: 40px;
+            }
+            
+            .col-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .cta-section {
+                padding: 50px 20px;
+            }
+            
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            
+            .cta-section p {
+                font-size: 1.1rem;
+            }
+            
+            .testimonial-card {
+                padding: 30px 20px;
+            }
+            
+            .industry-card {
+                padding: 30px 20px;
+            }
+            
+            .industry-card h3 {
+                font-size: 1.4rem;
+            }
+            
+            .feature-list li {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .col-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .btn-primary, .btn-outline {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .card-image {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* Ensure AOS animations are visible */
+        [data-aos] {
+            pointer-events: none;
+        }
+        [data-aos].aos-animate {
+            pointer-events: auto;
+        }
+
+        /* Fix for any overflowing elements */
+        img, svg, iframe, video {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Ensure no horizontal scroll from any element */
+        .container, 
+        .section-padding, 
+        .hero-section, 
+        .industries-hero,
+        .two-col-grid,
+        .industry-grid,
+        .stats-grid,
+        .testimonial-grid,
+        .cta-section {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER PLACEHOLDER - Header will load here -->
+    <div id="header-placeholder"></div>
+
+    <!-- HERO SECTION -->
+    <section class="industries-hero">
+        <div class="container">
+            <h1 data-aos="fade-down" data-aos-duration="1000" data-aos-mirror="true" data-aos-once="false">Industries We Transform</h1>
+            <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100" data-aos-mirror="true" data-aos-once="false">Tailored corporate products for every sector. From finance to healthcare, we deliver enterprise solutions that drive innovation.</p>
+        </div>
+    </section>
+
+    <!-- SECTION 1: FINANCE & BANKING -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-aos-mirror="true" data-aos-once="false">
+                <span class="pre-title">INDUSTRY 01</span>
+                <h2>Finance & Banking</h2>
+                <p>Secure, scalable corporate products for financial institutions.</p>
+            </div>
+            <div class="two-col-grid">
+                <div class="col-image" data-aos="fade-right" data-aos-duration="800" data-aos-mirror="true" data-aos-once="false">
+                    <img src="cpp1.webp" alt="Finance">
+                </div>
+                <div class="col-content" data-aos="fade-left" data-aos-duration="800" data-aos-mirror="true" data-aos-once="false">
+                    <h2>Enterprise Solutions for Finance</h2>
+                    <p>Our corporate products help banks and financial firms automate processes, ensure compliance, and enhance customer experiences.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-shield-alt"></i> Fraud detection & security</li>
+                        <li><i class="fas fa-chart-line"></i> Real-time analytics</li>
+                        <li><i class="fas fa-file-invoice"></i> Regulatory compliance tools</li>
+                    </ul>
+                    <a href="404.html" class="btn-primary">Explore financial products →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: HEALTHCARE -->
+    <section class="section-padding" style="background: var(--light-bg);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-aos-mirror="true" data-aos-once="false">
+                <span class="pre-title">INDUSTRY 02</span>
+                <h2>Healthcare & Life Sciences</h2>
+                <p>Innovative products for patient care, research, and administration.</p>
+            </div>
+            <div class="two-col-grid">
+                <div class="col-content" data-aos="fade-right" data-aos-duration="800" data-aos-mirror="true" data-aos-once="false">
+                    <h2>Transforming Healthcare</h2>
+                    <p>From electronic health records to telemedicine platforms, our corporate products empower healthcare providers.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-notes-medical"></i> EHR integration</li>
+                        <li><i class="fas fa-microscope"></i> Research data management</li>
+                        <li><i class="fas fa-user-md"></i> Patient engagement tools</li>
+                    </ul>
+                    <a href="404.html" class="btn-primary">Discover healthcare products →</a>
+                </div>
+                <div class="col-image" data-aos="fade-left" data-aos-duration="800" data-aos-mirror="true" data-aos-once="false">
+                    <img src="cpp2.webp" alt="Healthcare">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: RETAIL & E-COMMERCE (Grid of 3 cards) -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-aos-mirror="true" data-aos-once="false">
+                <span class="pre-title">INDUSTRY 03</span>
+                <h2>Retail & E‑Commerce</h2>
+                <p>Products that power omnichannel retail experiences.</p>
+            </div>
+            <div class="industry-grid">
+                <div class="industry-card" data-aos="zoom-in-up" data-aos-duration="700" data-aos-mirror="true" data-aos-once="false">
+                    <div class="card-image">
+                        <img src="cpp3.webp" alt="Inventory">
+                    </div>
+                    <h3>Inventory Management</h3>
+                    <p>Real‑time stock tracking and demand forecasting for retail chains.</p>
+                    <a href="404.html" class="card-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="industry-card" data-aos="zoom-in-up" data-aos-duration="700" data-aos-delay="100" data-aos-mirror="true" data-aos-once="false">
+                    <div class="card-image">
+                        <img src="cpp4.webp" alt="POS">
+                    </div>
+                    <h3>Omnichannel POS</h3>
+                    <p>Unified point‑of‑sale systems for online and offline stores.</p>
+                    <a href="404.html" class="card-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="industry-card" data-aos="zoom-in-up" data-aos-duration="700" data-aos-delay="200" data-aos-mirror="true" data-aos-once="false">
+                    <div class="card-image">
+                        <img src="cpp5.webp" alt="CRM">
+                    </div>
+                    <h3>Customer Analytics</h3>
+                    <p>Personalized marketing and loyalty program management.</p>
+                    <a href="404.html" class="card-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: MANUFACTURING (Stats) -->
+    <section class="section-padding" style="background: var(--light-bg);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-aos-mirror="true" data-aos-once="false">
+                <span class="pre-title">INDUSTRY 04</span>
+                <h2>Manufacturing & Industry 4.0</h2>
+                <p>Smart factory solutions and IoT integration.</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item" data-aos="flip-left" data-aos-duration="700" data-aos-mirror="true" data-aos-once="false">
+                    <div class="stat-number">35%</div>
+                    <div class="stat-label">Average efficiency increase</div>
+                </div>
+                <div class="stat-item" data-aos="flip-left" data-aos-duration="700" data-aos-delay="100" data-aos-mirror="true" data-aos-once="false">
+                    <div class="stat-number">50%</div>
+                    <div class="stat-label">Downtime reduction</div>
+                </div>
+                <div class="stat-item" data-aos="flip-left" data-aos-duration="700" data-aos-delay="200" data-aos-mirror="true" data-aos-once="false">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Supply chain visibility</div>
+                </div>
+                <div class="stat-item" data-aos="flip-left" data-aos-duration="700" data-aos-delay="300" data-aos-mirror="true" data-aos-once="false">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Factories using our products</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: LOGISTICS & SUPPLY CHAIN -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-aos-mirror="true" data-aos-once="false">
+                <span class="pre-title">INDUSTRY 05</span>
+                <h2>Logistics & Supply Chain</h2>
+                <p>End‑to‑end visibility and optimization.</p>
+            </div>
+            <div class="two-col-grid">
+                <div class="col-image" data-aos="fade-right" data-aos-duration="800" data-aos-mirror="true" data-aos-once="false">
+                    <img src="cpp6.webp" alt="Logistics">
+                </div>
+                <div class="col-content" data-aos="fade-left" data-aos-duration="800" data-aos-mirror="true" data-aos-once="false">
+                    <h2>Streamline Your Supply Chain</h2>
+                    <p>Our products provide real‑time tracking, route optimization, and warehouse management.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-truck"></i> Fleet management</li>
+                        <li><i class="fas fa-route"></i> Dynamic routing</li>
+                        <li><i class="fas fa-boxes"></i> Inventory optimization</li>
+                    </ul>
+                    <a href="404.html" class="btn-primary">Explore logistics products →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: TECHNOLOGY & SOFTWARE (3 cards) -->
+    <section class="section-padding" style="background: var(--light-bg);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-aos-mirror="true" data-aos-once="false">
+                <span class="pre-title">INDUSTRY 06</span>
+                <h2>Technology & Software</h2>
+                <p>Products built by tech leaders, for tech leaders.</p>
+            </div>
+            <div class="industry-grid">
+                <div class="industry-card" data-aos="zoom-in-up" data-aos-duration="700" data-aos-mirror="true" data-aos-once="false">
+                    <div class="card-image">
+                        <img src="cpp7.webp" alt="DevOps">
+                    </div>
+                    <h3>DevOps Automation</h3>
+                    <p>CI/CD pipelines and infrastructure as code for software teams.</p>
+                    <a href="404.html" class="card-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="industry-card" data-aos="zoom-in-up" data-aos-duration="700" data-aos-delay="100" data-aos-mirror="true" data-aos-once="false">
+                    <div class="card-image">
+                        <img src="cpp8.webp" alt="Cloud">
+                    </div>
+                    <h3>Cloud Management</h3>
+                    <p>Multi‑cloud cost optimization and governance.</p>
+                    <a href="404.html" class="card-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="industry-card" data-aos="zoom-in-up" data-aos-duration="700" data-aos-delay="200" data-aos-mirror="true" data-aos-once="false">
+                    <div class="card-image">
+                        <img src="cpp9.webp" alt="Security">
+                    </div>
+                    <h3>Application Security</h3>
+                    <p>DevSecOps tools for secure software development.</p>
+                    <a href="404.html" class="card-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: EDUCATION & E-LEARNING -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-aos-mirror="true" data-aos-once="false">
+                <span class="pre-title">INDUSTRY 07</span>
+                <h2>Education & E‑Learning</h2>
+                <p>Digital products for modern learning institutions.</p>
+            </div>
+            <div class="two-col-grid">
+                <div class="col-content" data-aos="fade-right" data-aos-duration="800" data-aos-mirror="true" data-aos-once="false">
+                    <h2>Empower Educators & Learners</h2>
+                    <p>From LMS to virtual classrooms, our products enhance the educational experience.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-chalkboard-teacher"></i> Virtual classrooms</li>
+                        <li><i class="fas fa-graduation-cap"></i> Student information systems</li>
+                        <li><i class="fas fa-chart-bar"></i> Learning analytics</li>
+                    </ul>
+                    <a href="404.html" class="btn-primary">Discover education products →</a>
+                </div>
+                <div class="col-image" data-aos="fade-left" data-aos-duration="800" data-aos-mirror="true" data-aos-once="false">
+                    <img src="cpp10.webp" alt="Education">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 8: ENERGY & UTILITIES (Testimonials) -->
+    <section class="section-padding" style="background: var(--light-bg);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-aos-mirror="true" data-aos-once="false">
+                <span class="pre-title">INDUSTRY 08</span>
+                <h2>Energy & Utilities</h2>
+                <p>Smart grid and sustainability products.</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card" data-aos="fade-right" data-aos-duration="800" data-aos-mirror="true" data-aos-once="false">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"Stackly's energy management products helped us reduce operational costs by 25% while improving grid reliability."</p>
+                    <div class="testimonial-author">
+                        <h5>Elena Martinez</h5>
+                        <span>CTO, GreenGrid Energy</span>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-aos="fade-left" data-aos-duration="800" data-aos-mirror="true" data-aos-once="false">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"The predictive maintenance tools have been a game‑changer for our utility infrastructure."</p>
+                    <div class="testimonial-author">
+                        <h5>Robert Chen</h5>
+                        <span>Operations Director, PowerCorp</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 9: HOSPITALITY & TRAVEL -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-aos-mirror="true" data-aos-once="false">
+                <span class="pre-title">INDUSTRY 09</span>
+                <h2>Hospitality & Travel</h2>
+                <p>Products that create memorable guest experiences.</p>
+            </div>
+            <div class="industry-grid">
+                <div class="industry-card" data-aos="zoom-in-up" data-aos-duration="700" data-aos-mirror="true" data-aos-once="false">
+                    <div class="card-image">
+                        <img src="cpp12.webp" alt="Hotel">
+                    </div>
+                    <h3>Property Management</h3>
+                    <p>Integrated PMS for hotels and resorts.</p>
+                    <a href="404.html" class="card-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="industry-card" data-aos="zoom-in-up" data-aos-duration="700" data-aos-delay="100" data-aos-mirror="true" data-aos-once="false">
+                    <div class="card-image">
+                        <img src="cpp1.webp" alt="Travel">
+                    </div>
+                    <h3>Booking Engine</h3>
+                    <p>Direct booking and channel management.</p>
+                    <a href="404.html" class="card-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="industry-card" data-aos="zoom-in-up" data-aos-duration="700" data-aos-delay="200" data-aos-mirror="true" data-aos-once="false">
+                    <div class="card-image">
+                        <img src="cpp2.webp" alt="Guest">
+                    </div>
+                    <h3>Guest Experience</h3>
+                    <p>Personalized mobile apps and concierge.</p>
+                    <a href="404.html" class="card-link">Learn more <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 10: REAL ESTATE & CONSTRUCTION -->
+    <section class="section-padding" style="background: var(--light-bg);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up" data-aos-mirror="true" data-aos-once="false">
+                <span class="pre-title">INDUSTRY 10</span>
+                <h2>Real Estate & Construction</h2>
+                <p>Digital solutions for property and project management.</p>
+            </div>
+            <div class="two-col-grid">
+                <div class="col-image" data-aos="fade-right" data-aos-duration="800" data-aos-mirror="true" data-aos-once="false">
+                    <img src="cpp4.webp" alt="Real Estate">
+                </div>
+                <div class="col-content" data-aos="fade-left" data-aos-duration="800" data-aos-mirror="true" data-aos-once="false">
+                    <h2>Build Smarter</h2>
+                    <p>From project planning to property management, our products streamline every phase.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-draw-polygon"></i> BIM integration</li>
+                        <li><i class="fas fa-file-signature"></i> Contract management</li>
+                        <li><i class="fas fa-chart-pie"></i> Portfolio analytics</li>
+                    </ul>
+                    <a href="404.html" class="btn-primary">Explore real estate products →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="cta-section" data-aos="zoom-in" data-aos-duration="1000" data-aos-mirror="true" data-aos-once="false">
+                <h2>Ready to transform your industry?</h2>
+                <p>Let's discuss how our corporate products can drive your success.</p>
+                <a href="404.html" class="btn-primary">Schedule a consultation →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER PLACEHOLDER - Footer will load here -->
+    <div id="footer-placeholder"></div>
+
+    <!-- AOS Library Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Header/Footer Loader Script -->
+    <script>
+        // Initialize AOS with mirror: true for animations on scroll up & down
+        AOS.init({
+            once: false,
+            mirror: true,
+            duration: 900,
+            offset: 20,
+            easing: 'ease-out-cubic',
+            anchorPlacement: 'top-bottom'
+        });
+
+        // Refresh AOS after header loads
+        function refreshAOS() {
+            if (AOS) {
+                AOS.refresh();
+            }
+        }
+
+        // Header and Footer Loader
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load header
+            fetch('header.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Header file not found');
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                    
+                    // Initialize header interactions after header is loaded
+                    setTimeout(() => {
+                        initHeaderInteractions();
+                        refreshAOS();
+                    }, 100);
+                })
+                .catch(error => {
+                    console.warn('Header could not be loaded:', error);
+                    document.getElementById('header-placeholder').innerHTML = 
+                        '<header style="background: #6c5ce7; color: white; padding: 20px; text-align: center;">Header Not Found (header.html missing)</header>';
+                });
+
+            // Load footer
+            fetch('footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error('Footer file not found');
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                    refreshAOS();
+                })
+                .catch(error => {
+                    console.warn('Footer could not be loaded:', error);
+                    document.getElementById('footer-placeholder').innerHTML = 
+                        '<footer style="background: #1a1a2e; color: white; padding: 40px; text-align: center;">Footer Not Found (footer.html missing)</footer>';
+                });
+        });
+
+        // Initialize header interactions (hamburger menu, dropdown)
+        function initHeaderInteractions() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            const dropdownBtn = document.getElementById('homeDropdownBtn');
+            const homeDropdown = document.getElementById('homeDropdown');
+            
+            console.log('Header initialized - menu toggle:', menuToggle, 'nav menu:', navMenu);
+            
+            // Mobile menu toggle
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                    
+                    // Prevent body scroll when menu is open
+                    if (navMenu.classList.contains('active')) {
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        document.body.style.overflow = 'auto';
+                        if (homeDropdown) homeDropdown.classList.remove('show');
+                        if (dropdownBtn) dropdownBtn.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Home dropdown toggle
+            if (dropdownBtn && homeDropdown) {
+                dropdownBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    homeDropdown.classList.toggle('show');
+                    this.classList.toggle('active');
+                });
+            }
+            
+            // Close mobile menu when clicking on any link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        if (menuToggle) menuToggle.classList.remove('active');
+                        if (navMenu) navMenu.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                        if (homeDropdown) homeDropdown.classList.remove('show');
+                        if (dropdownBtn) dropdownBtn.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (dropdownBtn && homeDropdown && !dropdownBtn.contains(e.target) && !homeDropdown.contains(e.target)) {
+                    homeDropdown.classList.remove('show');
+                    dropdownBtn.classList.remove('active');
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    if (menuToggle) menuToggle.classList.remove('active');
+                    if (navMenu) navMenu.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    if (homeDropdown) homeDropdown.classList.remove('show');
+                    if (dropdownBtn) dropdownBtn.classList.remove('active');
+                }
+                refreshAOS();
+            });
+        }
+
+        window.addEventListener('load', refreshAOS);
+    </script>
+</body>
+</html>

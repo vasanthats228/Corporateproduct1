@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Stackly Corporate - Advanced Dashboard</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        html {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Light Theme (Default) */
+        body.light-theme {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3f37c9;
+            --secondary: #f72585;
+            --accent: #f9c74f;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #f94144;
+            --light-bg: #f8f9fa;
+            --dark-text: #212529;
+            --gray-text: #6c757d;
+            --border-light: #dee2e6;
+            --white: #ffffff;
+            --black: #212529;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --hover-shadow: 0 20px 40px rgba(67,97,238,0.15);
+        }
+
+        /* Dark Theme */
+        body.dark-theme {
+            --primary: #4895ef;
+            --primary-light: #4cc9f0;
+            --primary-dark: #3f37c9;
+            --secondary: #f72585;
+            --accent: #f9c74f;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #f94144;
+            --light-bg: #121212;
+            --dark-text: #f8f9fa;
+            --gray-text: #adb5bd;
+            --border-light: #2b2b2b;
+            --white: #1e1e1e;
+            --black: #f8f9fa;
+            --card-bg: #2d2d2d;
+            --shadow: 0 10px 30px rgba(0,0,0,0.3);
+            --hover-shadow: 0 20px 40px rgba(72,149,239,0.3);
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+            overflow-x: hidden;
+        }
+
+        /* Header placeholder */
+        #header-placeholder {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Footer placeholder */
+        #footer-placeholder {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* ========== DASHBOARD LAYOUT ========== */
+        .dashboard {
+            padding: 20px 0 40px;
+            min-height: calc(100vh - 80px);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Dashboard Header with Controls */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .dashboard-title h1 {
+            font-size: clamp(1.5rem, 5vw, 2.2rem);
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 5px;
+        }
+
+        .dashboard-title p {
+            color: var(--gray-text);
+            font-size: clamp(0.8rem, 3vw, 1rem);
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 2px solid var(--border-light);
+            border-radius: 50px;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+        }
+
+        .theme-toggle i {
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        .date-picker {
+            background: var(--card-bg);
+            border: 2px solid var(--border-light);
+            border-radius: 50px;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .date-picker:hover {
+            border-color: var(--primary);
+        }
+
+        .date-picker i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .date-picker span {
+            color: var(--dark-text);
+            font-weight: 500;
+        }
+
+        .refresh-btn {
+            background: var(--card-bg);
+            border: 2px solid var(--border-light);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            transform: rotate(180deg);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Live Indicator */
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(76, 201, 240, 0.1);
+            padding: 5px 12px;
+            border-radius: 50px;
+            color: var(--success);
+            font-weight: 600;
+            border: 1px solid rgba(76, 201, 240, 0.3);
+            font-size: 0.85rem;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 18px 15px;
+            border: 2px solid var(--border-light);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .kpi-card:nth-child(1)::before { background: #4361ee; }
+        .kpi-card:nth-child(2)::before { background: #f72585; }
+        .kpi-card:nth-child(3)::before { background: #f9c74f; }
+        .kpi-card:nth-child(4)::before { background: #4cc9f0; }
+
+        .kpi-card:hover::before {
+            width: 6px;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .kpi-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .kpi-card:nth-child(1) .kpi-icon { color: #4361ee; background: rgba(67,97,238,0.1); }
+        .kpi-card:nth-child(2) .kpi-icon { color: #f72585; background: rgba(247,37,133,0.1); }
+        .kpi-card:nth-child(3) .kpi-icon { color: #f9c74f; background: rgba(249,199,79,0.1); }
+        .kpi-card:nth-child(4) .kpi-icon { color: #4cc9f0; background: rgba(76,201,240,0.1); }
+
+        .kpi-menu {
+            color: var(--gray-text);
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .kpi-menu:hover {
+            background: var(--border-light);
+            color: var(--primary);
+        }
+
+        .kpi-content h3 {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 700;
+            margin-bottom: 3px;
+            color: var(--dark-text);
+        }
+
+        .kpi-content p {
+            color: var(--gray-text);
+            font-size: 0.75rem;
+            margin-bottom: 10px;
+        }
+
+        .kpi-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .trend {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .trend.up { color: #4cc9f0; }
+        .trend.down { color: #f94144; }
+
+        .kpi-button {
+            background: transparent;
+            border: 2px solid var(--border-light);
+            border-radius: 20px;
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--dark-text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .kpi-button:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chart-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 18px;
+            border: 2px solid var(--border-light);
+            transition: all 0.4s ease;
+            width: 100%;
+        }
+
+        .chart-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .chart-header h3 {
+            font-size: clamp(0.9rem, 4vw, 1.2rem);
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .chart-actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .chart-btn {
+            background: transparent;
+            border: 2px solid var(--border-light);
+            border-radius: 30px;
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--gray-text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .chart-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .chart-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .chart-btn.active:hover {
+            color: white;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+            min-height: 200px;
+        }
+
+        /* Quick Actions Grid */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .action-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 15px 10px;
+            border: 2px solid var(--border-light);
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .action-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .action-icon {
+            width: 45px;
+            height: 45px;
+            margin: 0 auto 10px;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .action-card:hover .action-icon {
+            background: var(--primary);
+            color: white;
+        }
+
+        .action-card h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+            color: var(--dark-text);
+        }
+
+        .action-card p {
+            font-size: 0.7rem;
+            color: var(--gray-text);
+        }
+
+        /* Bottom Grid */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Product Performance Table - Fully Responsive */
+        .product-table {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 18px;
+            border: 2px solid var(--border-light);
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .product-table h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .view-all {
+            font-size: 0.8rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
+            padding: 10px 0;
+            border-bottom: 2px solid var(--border-light);
+            font-weight: 600;
+            color: var(--gray-text);
+            font-size: 0.8rem;
+            min-width: 500px;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 0.5fr;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-light);
+            align-items: center;
+            transition: background 0.3s ease;
+            cursor: pointer;
+            min-width: 500px;
+        }
+
+        .table-row:hover {
+            background: rgba(67, 97, 238, 0.05);
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: var(--dark-text);
+            font-size: 0.85rem;
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            color: var(--gray-text);
+        }
+
+        .product-revenue {
+            font-weight: 600;
+            color: #4cc9f0;
+            font-size: 0.85rem;
+        }
+
+        .product-growth {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .product-growth.positive {
+            color: #4cc9f0;
+        }
+
+        .product-growth.negative {
+            color: #f94144;
+        }
+
+        .product-action {
+            color: var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .table-row:hover .product-action {
+            opacity: 1;
+        }
+
+        /* Activity Timeline */
+        .activity-timeline {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 18px;
+            border: 2px solid var(--border-light);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .activity-timeline h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(5px);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-icon {
+            width: 38px;
+            height: 38px;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .timeline-content p {
+            font-weight: 500;
+            margin-bottom: 3px;
+            color: var(--dark-text);
+            font-size: 0.85rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .timeline-content span {
+            font-size: 0.7rem;
+            color: var(--gray-text);
+            display: block;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .timeline-time {
+            font-size: 0.65rem;
+            color: var(--gray-text);
+            flex-shrink: 0;
+        }
+
+        /* Responsive Breakpoints - FIXED */
+        @media (max-width: 1200px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-container {
+                height: 220px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .header-controls {
+                justify-content: flex-start;
+            }
+            
+            .chart-container {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 12px;
+            }
+            
+            .kpi-grid {
+                gap: 12px;
+            }
+            
+            .kpi-card {
+                padding: 15px 12px;
+            }
+            
+            .chart-card {
+                padding: 15px;
+            }
+            
+            .chart-container {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .header-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .theme-toggle span,
+            .date-picker span {
+                display: none;
+            }
+            
+            .theme-toggle,
+            .date-picker {
+                padding: 8px;
+            }
+            
+            .theme-toggle i,
+            .date-picker i {
+                font-size: 1.2rem;
+                margin: 0;
+            }
+            
+            .live-indicator span:not(.live-dot) {
+                display: none;
+            }
+            
+            .live-indicator {
+                padding: 8px;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+            
+            .table-header,
+            .table-row {
+                min-width: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chart-container {
+                height: 220px;
+            }
+            
+            .table-header,
+            .table-row {
+                min-width: 350px;
+                font-size: 0.7rem;
+            }
+            
+            .product-table,
+            .activity-timeline {
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .chart-container {
+                height: 200px;
+            }
+            
+            .table-header,
+            .table-row {
+                min-width: 300px;
+            }
+        }
+
+        /* AOS animations */
+        [data-aos] {
+            pointer-events: none;
+        }
+        [data-aos].aos-animate {
+            pointer-events: auto;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 25px;
+            max-width: 500px;
+            width: 100%;
+            border: 2px solid var(--border-light);
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 15px;
+            color: var(--dark-text);
+            font-size: 1.3rem;
+        }
+
+        .modal-content p {
+            margin-bottom: 20px;
+            color: var(--gray-text);
+            line-height: 1.6;
+            font-size: 0.9rem;
+            white-space: pre-line;
+            text-align: left;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .modal-close {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .modal-close:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .modal-redirect {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .modal-redirect:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--hover-shadow);
+            background: #d1146b;
+        }
+
+        /* Fix for Chart.js canvas */
+        canvas {
+            max-width: 100%;
+            height: auto !important;
+        }
+    </style>
+</head>
+<body class="light-theme">
+
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <br><br><br><br><br><br>
+
+    <!-- DASHBOARD SECTION -->
+    <section class="dashboard">
+        <div class="container">
+            <!-- Dashboard Header with Controls -->
+            <div class="dashboard-header" data-aos="fade-down">
+                <div class="dashboard-title">
+                    <h1>Advanced Corporate Dashboard</h1>
+                    <p>Real-time analytics with interactive controls</p>
+                </div>
+                <div class="header-controls">
+                    <div class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun" style="display: none;"></i>
+                        <span>Dark</span>
+                    </div>
+                    <div class="date-picker" id="datePicker">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>Mar 1-30, 2025</span>
+                    </div>
+                    <div class="live-indicator">
+                        <span class="live-dot"></span>
+                        <span>Live</span>
+                    </div>
+                    <div class="refresh-btn" id="refreshBtn">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI Cards with Click Buttons -->
+            <div class="kpi-grid">
+                <div class="kpi-card" data-aos="fade-up" data-aos-delay="100" data-card="revenue">
+                    <div class="kpi-header">
+                        <div class="kpi-icon"><i class="fas fa-chart-line"></i></div>
+                        <i class="fas fa-ellipsis-h kpi-menu"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3 id="totalRevenue">$4.8M</h3>
+                        <p>Total Revenue</p>
+                        <div class="kpi-footer">
+                            <span class="trend up"><i class="fas fa-arrow-up"></i> 15.3%</span>
+                            <button class="kpi-button" data-action="revenue-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card" data-aos="fade-up" data-aos-delay="200" data-card="users">
+                    <div class="kpi-header">
+                        <div class="kpi-icon"><i class="fas fa-users"></i></div>
+                        <i class="fas fa-ellipsis-h kpi-menu"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3 id="activeUsers">52.3K</h3>
+                        <p>Active Users</p>
+                        <div class="kpi-footer">
+                            <span class="trend up"><i class="fas fa-arrow-up"></i> 8.7%</span>
+                            <button class="kpi-button" data-action="users-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card" data-aos="fade-up" data-aos-delay="300" data-card="products">
+                    <div class="kpi-header">
+                        <div class="kpi-icon"><i class="fas fa-cubes"></i></div>
+                        <i class="fas fa-ellipsis-h kpi-menu"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3 id="activeProducts">189</h3>
+                        <p>Active Products</p>
+                        <div class="kpi-footer">
+                            <span class="trend up"><i class="fas fa-arrow-up"></i> 12.2%</span>
+                            <button class="kpi-button" data-action="products-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-card" data-aos="fade-up" data-aos-delay="400" data-card="rating">
+                    <div class="kpi-header">
+                        <div class="kpi-icon"><i class="fas fa-star"></i></div>
+                        <i class="fas fa-ellipsis-h kpi-menu"></i>
+                    </div>
+                    <div class="kpi-content">
+                        <h3 id="avgRating">4.9</h3>
+                        <p>Customer Rating</p>
+                        <div class="kpi-footer">
+                            <span class="trend up"><i class="fas fa-arrow-up"></i> 5.4%</span>
+                            <button class="kpi-button" data-action="rating-details">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="actions-grid" data-aos="fade-up">
+                <div class="action-card" data-action="new-report">
+                    <div class="action-icon"><i class="fas fa-file-alt"></i></div>
+                    <h4>New Report</h4>
+                    <p>Generate custom</p>
+                </div>
+                <div class="action-card" data-action="export-data">
+                    <div class="action-icon"><i class="fas fa-download"></i></div>
+                    <h4>Export Data</h4>
+                    <p>CSV, PDF, Excel</p>
+                </div>
+                <div class="action-card" data-action="schedule">
+                    <div class="action-icon"><i class="fas fa-clock"></i></div>
+                    <h4>Schedule</h4>
+                    <p>Automated reports</p>
+                </div>
+                <div class="action-card" data-action="alerts">
+                    <div class="action-icon"><i class="fas fa-bell"></i></div>
+                    <h4>Alerts</h4>
+                    <p>Notifications</p>
+                </div>
+            </div>
+
+            <!-- Charts Grid with Interactive Buttons -->
+            <div class="charts-grid">
+                <!-- Bar Chart with Controls -->
+                <div class="chart-card" data-aos="fade-right">
+                    <div class="chart-header">
+                        <h3>Product Performance</h3>
+                        <div class="chart-actions">
+                            <button class="chart-btn active" data-chart="bar" data-period="week">Week</button>
+                            <button class="chart-btn" data-chart="bar" data-period="month">Month</button>
+                            <button class="chart-btn" data-chart="bar" data-period="quarter">Qtr</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Line Chart with Controls -->
+                <div class="chart-card" data-aos="fade-left">
+                    <div class="chart-header">
+                        <h3>Revenue Trend</h3>
+                        <div class="chart-actions">
+                            <button class="chart-btn active" data-chart="line" data-compare="revenue">Rev</button>
+                            <button class="chart-btn" data-chart="line" data-compare="users">Users</button>
+                            <button class="chart-btn" data-chart="line" data-compare="growth">Growth</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Grid -->
+            <div class="bottom-grid">
+                <!-- Pie Chart -->
+                <div class="chart-card" data-aos="fade-up">
+                    <div class="chart-header">
+                        <h3>Market Distribution</h3>
+                        <div class="chart-actions">
+                            <button class="chart-btn active" data-pie="region">Region</button>
+                            <button class="chart-btn" data-pie="product">Product</button>
+                            <button class="chart-btn" data-pie="segment">Segment</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="pieChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Product Performance Table - Fully Responsive -->
+                <div class="product-table" data-aos="fade-up" data-aos-delay="100">
+                    <h3>
+                        Top Products
+                        <span class="view-all" data-action="view-all-products">View All →</span>
+                    </h3>
+                    <div class="table-responsive">
+                        <div class="table-header">
+                            <span>Product</span>
+                            <span>Category</span>
+                            <span>Revenue</span>
+                            <span>Growth</span>
+                            <span></span>
+                        </div>
+                        <div class="table-row" data-product="cloud">
+                            <span class="product-name">Cloud Platform</span>
+                            <span class="product-category">Infrastructure</span>
+                            <span class="product-revenue">$1.2M</span>
+                            <span class="product-growth positive">+15%</span>
+                            <span class="product-action"><i class="fas fa-chart-bar"></i></span>
+                        </div>
+                        <div class="table-row" data-product="security">
+                            <span class="product-name">Security Suite</span>
+                            <span class="product-category">Cybersecurity</span>
+                            <span class="product-revenue">$890K</span>
+                            <span class="product-growth positive">+12%</span>
+                            <span class="product-action"><i class="fas fa-chart-bar"></i></span>
+                        </div>
+                        <div class="table-row" data-product="analytics">
+                            <span class="product-name">Analytics Pro</span>
+                            <span class="product-category">Data</span>
+                            <span class="product-revenue">$650K</span>
+                            <span class="product-growth positive">+18%</span>
+                            <span class="product-action"><i class="fas fa-chart-bar"></i></span>
+                        </div>
+                        <div class="table-row" data-product="devops">
+                            <span class="product-name">DevOps Suite</span>
+                            <span class="product-category">Automation</span>
+                            <span class="product-revenue">$420K</span>
+                            <span class="product-growth positive">+9%</span>
+                            <span class="product-action"><i class="fas fa-chart-bar"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Timeline -->
+            <div class="activity-timeline" data-aos="fade-up">
+                <h3>Recent Activity</h3>
+                <div class="timeline-item" data-activity="deploy">
+                    <div class="timeline-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="timeline-content">
+                        <p>Cloud Platform v3.0 deployed</p>
+                        <span>Production environment</span>
+                        <span class="timeline-time">2m ago</span>
+                    </div>
+                </div>
+                <div class="timeline-item" data-activity="security">
+                    <div class="timeline-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="timeline-content">
+                        <p>Security audit completed</p>
+                        <span>98% score - 5 issues</span>
+                        <span class="timeline-time">15m ago</span>
+                    </div>
+                </div>
+                <div class="timeline-item" data-activity="client">
+                    <div class="timeline-icon"><i class="fas fa-user-plus"></i></div>
+                    <div class="timeline-content">
+                        <p>New enterprise client onboarded</p>
+                        <span>TechCorp Global</span>
+                        <span class="timeline-time">1h ago</span>
+                    </div>
+                </div>
+                <div class="timeline-item" data-activity="report">
+                    <div class="timeline-icon"><i class="fas fa-chart-pie"></i></div>
+                    <div class="timeline-content">
+                        <p>Monthly report generated</p>
+                        <span>Q1 2025 - Revenue up 23%</span>
+                        <span class="timeline-time">3h ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER PLACEHOLDER -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Modal for Interactions -->
+    <div class="modal" id="actionModal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Action Triggered</h2>
+            <p id="modalMessage">You clicked on an interactive element. This would open detailed analytics in a production environment.</p>
+            <div class="modal-buttons">
+                <button class="modal-close" id="modalClose">Close</button>
+                <button class="modal-redirect" id="modalRedirect">View Full Analysis →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            once: false,
+            mirror: true,
+            duration: 900,
+            offset: 20,
+            easing: 'ease-out-cubic'
+        });
+
+        // Chart instances
+        let barChart, lineChart, pieChart;
+
+        // Initialize charts
+        function initCharts() {
+            // Bar Chart
+            const barCtx = document.getElementById('barChart').getContext('2d');
+            barChart = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Cloud', 'Security', 'Analytics', 'DevOps', 'Mobile', 'AI'],
+                    datasets: [{
+                        label: 'Revenue ($K)',
+                        data: [1240, 890, 650, 420, 380, 290],
+                        backgroundColor: [
+                            '#4361ee',
+                            '#f72585',
+                            '#f9c74f',
+                            '#4cc9f0',
+                            '#f8961e',
+                            '#f94144'
+                        ],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { borderDash: [5, 5] },
+                            ticks: { 
+                                font: { size: 10 },
+                                maxTicksLimit: 6
+                            }
+                        },
+                        x: {
+                            ticks: { 
+                                font: { size: 9 }, 
+                                maxRotation: 45, 
+                                minRotation: 45,
+                                maxTicksLimit: 6
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Line Chart
+            const lineCtx = document.getElementById('lineChart').getContext('2d');
+            lineChart = new Chart(lineCtx, {
+                type: 'line',
+                data: {
+                    labels: ['W1', 'W2', 'W3', 'W4', 'W5'],
+                    datasets: [
+                        {
+                            label: 'Revenue ($K)',
+                            data: [42, 48, 45, 52, 58],
+                            borderColor: '#4361ee',
+                            backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            pointRadius: 3,
+                            pointHoverRadius: 5
+                        },
+                        {
+                            label: 'Users (K)',
+                            data: [28, 32, 35, 38, 42],
+                            borderColor: '#f72585',
+                            backgroundColor: 'rgba(247, 37, 133, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            pointRadius: 3,
+                            pointHoverRadius: 5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { borderDash: [5, 5] },
+                            ticks: { 
+                                font: { size: 10 },
+                                maxTicksLimit: 5
+                            }
+                        },
+                        x: {
+                            ticks: { 
+                                font: { size: 9 },
+                                maxTicksLimit: 5
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Pie Chart
+            const pieCtx = document.getElementById('pieChart').getContext('2d');
+            pieChart = new Chart(pieCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['North America', 'Europe', 'Asia', 'South America', 'Africa'],
+                    datasets: [{
+                        data: [42, 28, 18, 8, 4],
+                        backgroundColor: [
+                            '#4361ee',
+                            '#f72585',
+                            '#f9c74f',
+                            '#4cc9f0',
+                            '#f8961e'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { 
+                                usePointStyle: true, 
+                                padding: 8, 
+                                font: { size: 9 },
+                                boxWidth: 8,
+                                boxHeight: 8
+                            }
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            document.body.classList.toggle('light-theme');
+            
+            const moonIcon = themeToggle.querySelector('.fa-moon');
+            const sunIcon = themeToggle.querySelector('.fa-sun');
+            const text = themeToggle.querySelector('span');
+            
+            if (document.body.classList.contains('dark-theme')) {
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'inline-block';
+                text.textContent = 'Light';
+            } else {
+                moonIcon.style.display = 'inline-block';
+                sunIcon.style.display = 'none';
+                text.textContent = 'Dark';
+            }
+        });
+
+        // Modal functionality with redirect
+        const modal = document.getElementById('actionModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        const modalClose = document.getElementById('modalClose');
+        const modalRedirect = document.getElementById('modalRedirect');
+
+        function showModal(title, message) {
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            modal.classList.add('active');
+            modalRedirect.setAttribute('data-action', title);
+        }
+
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        modalRedirect.addEventListener('click', () => {
+            window.location.href = '404.html';
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // KPI Button clicks
+        document.querySelectorAll('.kpi-button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const action = btn.getAttribute('data-action');
+                let title = '', message = '';
+                
+                switch(action) {
+                    case 'revenue-details':
+                        title = 'Revenue Analytics';
+                        message = 'Total Revenue: $4.8M\n• Monthly Recurring: $2.1M\n• Annual Run Rate: $25.2M\n• Average Deal Size: $48.5K\n• Customer LTV: $124K';
+                        break;
+                    case 'users-details':
+                        title = 'User Analytics';
+                        message = 'Active Users: 52.3K\n• Daily Active: 42.1K\n• Monthly Active: 52.3K\n• New Users (30d): 8.2K\n• Churn Rate: 2.3%';
+                        break;
+                    case 'products-details':
+                        title = 'Product Analytics';
+                        message = 'Active Products: 189\n• Top Product: Cloud Platform\n• Products Launched (Q1): 12\n• Beta Products: 5\n• Avg Rating: 4.7 ★';
+                        break;
+                    case 'rating-details':
+                        title = 'Customer Satisfaction';
+                        message = 'Customer Rating: 4.9\n• Overall NPS: 72\n• Support Satisfaction: 96%\n• Avg Response Time: 2.4h\n• Feature Requests: 342';
+                        break;
+                    default:
+                        title = 'KPI Details';
+                        message = `Viewing detailed analytics for ${action.replace('-', ' ')}`;
+                }
+                showModal(title, message);
+            });
+        });
+
+        // KPI Card clicks
+        document.querySelectorAll('.kpi-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (e.target.classList.contains('kpi-button') || e.target.closest('.kpi-button')) return;
+                const cardType = card.getAttribute('data-card');
+                const titles = {
+                    'revenue': 'Revenue Overview',
+                    'users': 'Users Overview',
+                    'products': 'Products Overview',
+                    'rating': 'Rating Overview'
+                };
+                const messages = {
+                    'revenue': 'Complete revenue breakdown with historical trends, forecasts, and segment analysis.',
+                    'users': 'Comprehensive user metrics including acquisition channels, retention cohorts, and engagement patterns.',
+                    'products': 'Full product portfolio analysis with adoption rates, feature usage, and roadmap progress.',
+                    'rating': 'Detailed customer feedback analysis with sentiment trends and improvement areas.'
+                };
+                showModal(titles[cardType], messages[cardType]);
+            });
+        });
+
+        // Quick Action clicks
+        document.querySelectorAll('.action-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const action = card.getAttribute('data-action');
+                const actionNames = {
+                    'new-report': 'Generate New Report',
+                    'export-data': 'Export Data',
+                    'schedule': 'Schedule Manager',
+                    'alerts': 'Alert Configuration'
+                };
+                const actionMessages = {
+                    'new-report': 'Create custom reports with drag-and-drop interface. Select metrics, dimensions, and visualization type.',
+                    'export-data': 'Export current dashboard data in CSV, PDF, or Excel format with customizable date ranges.',
+                    'schedule': 'Schedule automated report generation and delivery via email or Slack.',
+                    'alerts': 'Configure custom alerts for KPI thresholds, anomalies, and system events.'
+                };
+                showModal(actionNames[action], actionMessages[action]);
+            });
+        });
+
+        // Chart button clicks
+        document.querySelectorAll('[data-chart]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.querySelectorAll('.chart-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const chartType = this.getAttribute('data-chart');
+                const period = this.getAttribute('data-period') || this.getAttribute('data-compare') || 'changed';
+                
+                let title = '', message = '';
+                
+                if (period === 'week' || period === 'month' || period === 'quarter') {
+                    title = `Bar Chart: ${period.charAt(0).toUpperCase() + period.slice(1)} View`;
+                    message = `Showing product performance for ${period}ly period.\n• Cloud: $${(Math.random()*2+1).toFixed(1)}M\n• Security: $${(Math.random()*1+0.7).toFixed(1)}M\n• Analytics: $${(Math.random()*0.8+0.4).toFixed(1)}M`;
+                } else {
+                    title = `Line Chart: ${period.charAt(0).toUpperCase() + period.slice(1)} View`;
+                    message = `Displaying ${period} trend over last 5 weeks.\n• Current: ${(Math.random()*20+50).toFixed(1)}K\n• Previous: ${(Math.random()*20+40).toFixed(1)}K\n• Growth: +${(Math.random()*15+5).toFixed(1)}%`;
+                }
+                
+                showModal(title, message);
+                
+                if (barChart && chartType === 'bar') {
+                    barChart.data.datasets[0].data = barChart.data.datasets[0].data.map(() => Math.floor(Math.random() * 800 + 300));
+                    barChart.update();
+                }
+                if (lineChart && chartType === 'line') {
+                    lineChart.data.datasets[0].data = lineChart.data.datasets[0].data.map(() => Math.floor(Math.random() * 30 + 40));
+                    lineChart.data.datasets[1].data = lineChart.data.datasets[1].data.map(() => Math.floor(Math.random() * 20 + 25));
+                    lineChart.update();
+                }
+            });
+        });
+
+        // Pie chart button clicks
+        document.querySelectorAll('[data-pie]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const parent = this.parentElement;
+                parent.querySelectorAll('.chart-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const pieType = this.getAttribute('data-pie');
+                let title = '', message = '';
+                
+                if (pieType === 'region') {
+                    title = 'Market Distribution by Region';
+                    message = 'North America: 42%\nEurope: 28%\nAsia: 18%\nSouth America: 8%\nAfrica: 4%';
+                } else if (pieType === 'product') {
+                    title = 'Market Distribution by Product';
+                    message = 'Cloud Platform: 35%\nSecurity Suite: 22%\nAnalytics Pro: 18%\nDevOps Suite: 12%\nOthers: 13%';
+                } else if (pieType === 'segment') {
+                    title = 'Market Distribution by Segment';
+                    message = 'Enterprise: 38%\nMid-Market: 25%\nSMB: 20%\nStartup: 12%\nIndividual: 5%';
+                }
+                
+                showModal(title, message);
+                
+                if (pieChart) {
+                    if (pieType === 'region') {
+                        pieChart.data.labels = ['North America', 'Europe', 'Asia', 'South America', 'Africa'];
+                        pieChart.data.datasets[0].data = [42, 28, 18, 8, 4];
+                    } else if (pieType === 'product') {
+                        pieChart.data.labels = ['Cloud', 'Security', 'Analytics', 'DevOps', 'Others'];
+                        pieChart.data.datasets[0].data = [35, 22, 18, 12, 13];
+                    } else if (pieType === 'segment') {
+                        pieChart.data.labels = ['Enterprise', 'Mid-Market', 'SMB', 'Startup', 'Individual'];
+                        pieChart.data.datasets[0].data = [38, 25, 20, 12, 5];
+                    }
+                    pieChart.update();
+                }
+            });
+        });
+
+        // Table row clicks
+        document.querySelectorAll('.table-row').forEach(row => {
+            row.addEventListener('click', () => {
+                const product = row.getAttribute('data-product');
+                const productNames = {
+                    'cloud': 'Cloud Platform',
+                    'security': 'Security Suite',
+                    'analytics': 'Analytics Pro',
+                    'devops': 'DevOps Suite'
+                };
+                showModal(`${productNames[product]} Analytics`, `Revenue: ${row.querySelector('.product-revenue').textContent}\nGrowth: ${row.querySelector('.product-growth').textContent}\nMarket Share: ${Math.floor(Math.random()*20+15)}%\nCustomer Count: ${Math.floor(Math.random()*500+200)}`);
+            });
+        });
+
+        // Timeline item clicks
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const activity = item.getAttribute('data-activity');
+                const activityNames = {
+                    'deploy': 'Deployment Details',
+                    'security': 'Security Audit Report',
+                    'client': 'Client Onboarding Details',
+                    'report': 'Monthly Report Preview'
+                };
+                const activityMessages = {
+                    'deploy': 'Cloud Platform v3.0 deployed to production.\n• Duration: 12 minutes\n• Success Rate: 100%\n• Rollback: Not required',
+                    'security': 'Security audit completed.\n• Score: 98%\n• Critical Issues: 0\n• High Issues: 2\n• Resolution: 5 days',
+                    'client': 'New enterprise client onboarded.\n• Company: TechCorp Global\n• Plan: Enterprise\n• Contract Value: $240K',
+                    'report': 'Q1 2025 monthly report generated.\n• Revenue: $14.2M (+23% YoY)\n• New Customers: 128\n• Churn Rate: 2.1%'
+                };
+                showModal(activityNames[activity], activityMessages[activity]);
+            });
+        });
+
+        // View All link
+        document.querySelector('.view-all').addEventListener('click', () => {
+            showModal('All Products', 'Complete product catalog with 189 active products.\n• Top Categories: Cloud (35), Security (28), Analytics (22)\n• Total Revenue: $4.8M\n• Avg Growth: +12.3%');
+        });
+
+        // Date picker
+        document.getElementById('datePicker').addEventListener('click', () => {
+            showModal('Date Range Selector', 'Select custom date range:\n• Last 7 days\n• Last 30 days\n• This Quarter\n• Year to Date\n• Custom Range');
+        });
+
+        // Refresh button
+        document.getElementById('refreshBtn').addEventListener('click', function() {
+            this.style.transform = 'rotate(180deg)';
+            
+            const newRevenue = (Math.random() * 2 + 4).toFixed(1);
+            const newUsers = (Math.random() * 10 + 48).toFixed(1);
+            const newProducts = Math.floor(Math.random() * 30 + 170);
+            const newRating = (Math.random() * 0.3 + 4.7).toFixed(1);
+            
+            document.getElementById('totalRevenue').textContent = '$' + newRevenue + 'M';
+            document.getElementById('activeUsers').textContent = newUsers + 'K';
+            document.getElementById('activeProducts').textContent = newProducts;
+            document.getElementById('avgRating').textContent = newRating;
+            
+            showModal('Data Refreshed', `Dashboard updated with latest metrics:\n• Revenue: $${newRevenue}M\n• Users: ${newUsers}K\n• Products: ${newProducts}\n• Rating: ${newRating}`);
+            
+            setTimeout(() => {
+                this.style.transform = 'rotate(0deg)';
+            }, 300);
+        });
+
+        // Auto-refresh
+        setInterval(() => {
+            document.getElementById('totalRevenue').textContent = '$' + (Math.random() * 2 + 4).toFixed(1) + 'M';
+            document.getElementById('activeUsers').textContent = (Math.random() * 10 + 48).toFixed(1) + 'K';
+            document.getElementById('activeProducts').textContent = Math.floor(Math.random() * 30 + 170);
+            document.getElementById('avgRating').textContent = (Math.random() * 0.3 + 4.7).toFixed(1);
+        }, 15000);
+
+        // Header/Footer Loader
+        function refreshAOS() { if (AOS) AOS.refresh(); }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initCharts();
+
+            fetch('header.html')
+                .then(response => response.ok ? response.text() : Promise.reject())
+                .then(data => {
+                    document.getElementById('header-placeholder').innerHTML = data;
+                    setTimeout(() => { if (typeof initHeaderInteractions === 'function') initHeaderInteractions(); refreshAOS(); }, 100);
+                })
+                .catch(() => document.getElementById('header-placeholder').innerHTML = '<header style="background: #4361ee; color: white; padding: 20px; text-align: center;">Header</header>');
+
+            fetch('footer.html')
+                .then(response => response.ok ? response.text() : Promise.reject())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                    refreshAOS();
+                })
+                .catch(() => document.getElementById('footer-placeholder').innerHTML = '<footer style="background: #1a1a2e; color: white; padding: 40px; text-align: center;">Footer</footer>');
+        });
+
+        function initHeaderInteractions() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+                });
+            }
+        }
+    </script>
+</body>
+</html>

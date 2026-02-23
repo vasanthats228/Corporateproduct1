@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Stackly - Topbar & Navbar only</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        /* Fixed Header Container */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* ----- TOP BAR (color changed to match login button #feca57) ----- */
+        .top-bar {
+            background-color: #feca57; /* Yellow like login button */
+            color: #0a0c14; /* dark text for contrast */
+            padding: 10px 0;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .top-bar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #0a0c14;
+        }
+
+        .top-bar-left i {
+            color: #0a0c14; /* dark icon */
+            font-size: 14px;
+        }
+
+        .top-bar-left span {
+            color: #0a0c14;
+            letter-spacing: 0.3px;
+            font-weight: 500;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .top-bar-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #0a0c14;
+        }
+
+        .top-bar-contact-item i {
+            font-size: 14px;
+            color: #0a0c14; /* dark icon */
+        }
+
+        .top-bar-contact-item span,
+        .top-bar-contact-item a {
+            color: #0a0c14;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .top-bar-contact-item a:hover {
+            color: #ffffff; /* light hover effect */
+        }
+
+        .top-bar-separator {
+            color: rgba(10, 12, 20, 0.4);
+            font-size: 16px;
+            font-weight: 300;
+        }
+
+        /* ----- MAIN NAVIGATION (original dark theme, untouched) ----- */
+        .main-nav {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .logo img {
+            height: 45px;
+            width: auto;
+            display: block;
+            filter: brightness(0) invert(1);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu li a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-menu li a:hover {
+            color: #feca57;
+        }
+
+        .home-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .home-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 0;
+        }
+
+        .home-link:hover {
+            color: #feca57;
+        }
+
+        .dropdown-icon {
+            background: none;
+            border: none;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            padding: 8px 5px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .dropdown-icon:hover {
+            color: #feca57;
+        }
+
+        .dropdown-icon.active i {
+            transform: rotate(180deg);
+        }
+
+        .home-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(10, 12, 20, 0.95);
+            backdrop-filter: blur(10px);
+            min-width: 180px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .home-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .home-dropdown li {
+            list-style: none;
+        }
+
+        .home-dropdown li a {
+            padding: 10px 20px;
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+        }
+
+        .home-dropdown li a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #feca57;
+        }
+
+        .login-link {
+            background: #feca57;
+            color: #0a0c14 !important;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .login-link:hover {
+            background: #ffd700 !important;
+            color: #0a0c14 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(254, 202, 87, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .top-bar-container {
+                padding: 0 20px;
+                flex-direction: column;
+                gap: 8px;
+                align-items: center;
+                text-align: center;
+            }
+
+            .top-bar-left, .top-bar-right {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .top-bar-right {
+                gap: 15px;
+            }
+
+            .top-bar-contact-item {
+                font-size: 13px;
+            }
+
+            .navbar {
+                padding: 12px 20px;
+            }
+
+            .logo img {
+                height: 35px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transition: left 0.3s ease;
+                z-index: 999;
+                padding: 0;
+                margin: 0;
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                width: 100%;
+                text-align: center;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .nav-menu li a {
+                font-size: 22px;
+                padding: 15px;
+                display: inline-block;
+                color: white;
+                font-weight: 500;
+            }
+
+            .home-item {
+                justify-content: center;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .home-link {
+                font-size: 22px !important;
+                padding: 15px !important;
+                color: white !important;
+            }
+
+            .dropdown-icon {
+                font-size: 18px;
+                padding: 15px 10px;
+                background: none;
+                border: none;
+                color: white;
+            }
+
+            .home-dropdown {
+                position: static;
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                box-shadow: none;
+                margin: 5px auto 0;
+                width: 80%;
+                border-radius: 15px;
+                display: none;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .home-dropdown.show {
+                display: block;
+            }
+
+            .home-dropdown li a {
+                font-size: 18px !important;
+                padding: 12px !important;
+                color: rgba(255, 255, 255, 0.9) !important;
+            }
+
+            .home-dropdown li a:hover {
+                background: rgba(255, 255, 255, 0.15);
+                color: #feca57 !important;
+            }
+
+            .login-link {
+                display: inline-block !important;
+                font-size: 20px !important;
+                padding: 12px 40px !important;
+                margin-top: 10px;
+                background: #feca57;
+                color: #0a0c14 !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 10px 15px;
+            }
+
+            .logo img {
+                height: 30px;
+            }
+
+            .nav-menu li a {
+                font-size: 20px;
+            }
+
+            .home-link {
+                font-size: 20px !important;
+            }
+
+            .home-dropdown li a {
+                font-size: 16px !important;
+            }
+
+            .login-link {
+                font-size: 18px !important;
+            }
+
+            .top-bar-container {
+                padding: 0 10px;
+            }
+            .top-bar-contact-item {
+                font-size: 12px;
+            }
+        }
+
+        .fas {
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ONLY TOPBAR AND NAVBAR - no other content -->
+    <header class="header">
+        <!-- TOP BAR with color changed to #feca57 (login button color) -->
+        <div class="top-bar">
+            <div class="top-bar-container">
+                <div class="top-bar-left">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>Welcome to Stackly Corporate Product</span>
+                </div>
+                <div class="top-bar-right">
+                    <div class="top-bar-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="404.html">info@thestackly.com</a>
+                    </div>
+                    <span class="top-bar-separator">|</span>
+                    <div class="top-bar-contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+91 70107 92745</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Navigation (original dark theme, all functionalities intact) -->
+        <div class="main-nav">
+            <nav class="navbar">
+                <a href="index.html" class="logo">
+                    <img src="Stacklylogo.webp" alt="Stackly Logo" 
+                         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'45\' height=\'45\' viewBox=\'0 0 45 45\'%3E%3Crect width=\'45\' height=\'45\' fill=\'%23667eea\'/%3E%3Ctext x=\'8\' y=\'30\' fill=\'white\' font-size=\'20\' font-weight=\'bold\'%3ES%3C/text%3E%3C/svg%3E';">
+                </a>
+
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li>
+                        <div class="home-item">
+                            <a href="index.html" class="home-link">Home</a>
+                            <button class="dropdown-icon" id="homeDropdownBtn">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <ul class="home-dropdown" id="homeDropdown">
+                            <li><a href="home2.html">Home 2</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="industries.html">Industries</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" class="login-link">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Absolutely no content below - only topbar and navbar exist -->
+
+    <!-- JavaScript (original, untouched) -->
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const dropdownBtn = document.getElementById('homeDropdownBtn');
+        const homeDropdown = document.getElementById('homeDropdown');
+
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+                homeDropdown.classList.remove('show');
+            }
+        });
+
+        dropdownBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            homeDropdown.classList.toggle('show');
+            this.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    menuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    homeDropdown.classList.remove('show');
+                }
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!dropdownBtn.contains(e.target) && !homeDropdown.contains(e.target)) {
+                homeDropdown.classList.remove('show');
+                dropdownBtn.classList.remove('active');
+            }
+        });
+
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                menuToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                homeDropdown.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

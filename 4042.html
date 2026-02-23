@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 | Page Not Found</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== RESET ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html, body{
+  width:100%;
+  height:100%;
+  overflow-x:hidden; /* 🔥 FIX horizontal scroll */
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#041f3d,#0b6ddf);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  position:relative;
+}
+
+/* ===== BACKGROUND SHAPES ===== */
+.shape{
+  position:absolute;
+  border-radius:50%;
+  opacity:.25;
+  animation:float 8s infinite alternate ease-in-out;
+  max-width:100%;
+}
+
+.shape.one{
+  width:180px;
+  height:180px;
+  background:#ffffff;
+  top:-60px;
+  left:-60px;
+}
+
+.shape.two{
+  width:140px;
+  height:140px;
+  background:#00d9ff;
+  bottom:-50px;
+  right:-40px;
+  animation-duration:10s;
+}
+
+@keyframes float{
+  from{transform:translateY(0)}
+  to{transform:translateY(25px)}
+}
+
+/* ===== CARD ===== */
+.card{
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(18px);
+  padding:48px 36px;
+  border-radius:22px;
+  width:100%;
+  max-width:420px;
+  text-align:center;
+  box-shadow:0 35px 70px rgba(0,0,0,.4);
+  animation:fadeIn .8s ease;
+  margin:16px;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ===== TEXT ===== */
+.code{
+  font-size:90px;
+  font-weight:700;
+  letter-spacing:4px;
+  line-height:1;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+}
+
+h2{
+  margin-top:14px;
+  font-size:22px;
+}
+
+p{
+  font-size:14px;
+  opacity:.85;
+  margin:16px 0 28px;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+  width:100%;
+  max-width:220px;
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:600;
+  background:#033b6d;
+  color:#fff;
+  transition:.3s ease;
+}
+
+.btn:hover{
+  background:#022a50;
+  transform:translateY(-2px);
+}
+
+/* ===== MOBILE FIX ===== */
+@media(max-width:480px){
+  .card{
+    padding:38px 24px;
+  }
+  .code{
+    font-size:72px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Shapes -->
+<div class="shape one"></div>
+<div class="shape two"></div>
+
+<!-- Card -->
+<div class="card">
+  <div class="code">404</div>
+  <h2>Page Not Found</h2>
+  <p>
+    The page you are looking for does not exist or has been moved.
+  </p>
+
+  <button class="btn" onclick="location.href='home2.html'">
+    Go Back to Home
+  </button>
+</div>
+
+</body>
+</html>
